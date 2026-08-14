@@ -6,18 +6,15 @@ import org.henrique.classes.Tarefa;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Permanencia {
     private static final String path = "/home/carlos/Documents/projetos/projetosJAVA/permanencia";
-
-    private static ArrayList<Quadro_de_tarefas> quadros;
+    public ArrayList<Quadro_de_tarefas> quadros_carregados;
 
 
     private String get_file_content(String path) throws FileNotFoundException{
@@ -70,7 +67,7 @@ public class Permanencia {
             List<Path> quadros_paths = stream.filter(Files::isDirectory).toList();
             for (Path qp : quadros_paths) {
                 Quadro_de_tarefas quadro = fetch_quadro(qp);
-                quadros.add(quadro);
+                quadros_carregados.add(quadro);
             }
         } catch (IOException e){
             e.printStackTrace();
@@ -107,7 +104,7 @@ public class Permanencia {
                 Files.writeString(pt, t.get_attr(i) );
             } catch (Exception e){
                 e.printStackTrace();
-                System.out.println("deu merda criando tarefa2");
+                System.out.println("deu merda criando tarefa");
                 System.exit(-1);
             }
         }
@@ -140,8 +137,8 @@ public class Permanencia {
 
 
     public Permanencia() {
-        quadros = new ArrayList<>();
+        quadros_carregados = new ArrayList<>();
         load_quadros();
-        save_quadro(quadros.getFirst());
+        save_quadro(quadros_carregados.getFirst());
     }
 }
