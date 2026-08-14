@@ -85,7 +85,7 @@ public class Terminal {
             if (nome.contains(" ")) return;
             if (quadro_contem(nome)) return;
 
-            Tarefa nova = new Tarefa(in.substring(5), "", "", 0, "", "TODO");
+            Tarefa nova = new Tarefa(in.substring(5), "", "", 1, "", "TODO");
             quadro_carregado.append_tarefa(nova);
             return;
         }
@@ -130,7 +130,17 @@ public class Terminal {
             Tarefa t = get_ref_quadro(args[0]);
             if (t == null) return;
 
-            t.prioridade = Integer.parseInt(args[1]);
+            int valor;
+            try{
+                valor = Integer.parseInt(args[1]);
+            }
+            catch (Exception e){
+                return;
+            }
+            if (valor < 1) valor = 1;
+            if (valor > 5) valor = 5;
+
+            t.prioridade = valor;
 
         }
         if (in.startsWith("descricao ") && in.length() > 10){
