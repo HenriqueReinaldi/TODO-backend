@@ -6,18 +6,13 @@ import org.henrique.classes.Tarefa;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-// QUANDO O SISTEMA FOR INVOCADO, DEVE CARREGAR TODAS AS DIFERENTES LISTAS
-//
-
 
 public class Permanencia {
     private static final String path = "/home/carlos/Documents/projetos/projetosJAVA/permanencia";
@@ -49,7 +44,6 @@ public class Permanencia {
             //fds
         }
 
-
         return new Tarefa(nome, desc, data_termino, prioridade, categoria, status);
     }
 
@@ -73,30 +67,81 @@ public class Permanencia {
         Path root = Paths.get(path);
 
         try (Stream<Path> stream = Files.list(root)){
-
             List<Path> quadros_paths = stream.filter(Files::isDirectory).toList();
             for (Path qp : quadros_paths) {
                 Quadro_de_tarefas quadro = fetch_quadro(qp);
                 quadros.add(quadro);
             }
-
         } catch (IOException e){
             e.printStackTrace();
             System.out.println("vbai se foder (erro abrindo arquivo)");
             System.exit(-1);
         }
-
-        for(Quadro_de_tarefas q : quadros){
-            System.out.println(q.nome);
-            q.listar_tarefas();
-        }
     }
 
 
+    private void delete_tarefa(Path path){
+        try {
+            Files.walk(path).sorted(Comparator.reverseOrder()).map(Path::toFile).forEach(java.io.File::delete);
+        }
+        catch (IOException e){
+            System.out.println("deu merda limpando tarefa");
+            System.exit(-1);
+        }
+    }
+
+    private void create_tarefa(Tarefa t, String path){
+        File tp = new File(path);
+
+        System.out.println(tp);
+        if (!tp.mkdir()){
+            return;
+        }
+
+        List<String> info = List.of("categoria", "data_termino", "desc", "prioridade", "status");
+        for (String i : info) {
+            try {
+                Path pt = Path.of(path, i);
+                Files.createFile(pt);
+
+                Files.writeString(pt, t.get_attr(i) );
+            } catch (Exception e){
+                e.printStackTrace();
+                System.out.println("deu merda criando tarefa2");
+                System.exit(-1);
+            }
+        }
+    }
+
+    private void save_quadro(Quadro_de_tarefas q){
+        Path root = Paths.get(path, q.nome);
+
+        List<Path> tarefas_paths = List.of();
+        try{
+            Stream<Path> stream = Files.list(root);
+            tarefas_paths = stream.filter(Files::isDirectory).toList();
+            stream.close();
+        }
+        catch (IOException e){
+            System.out.println("deu merda salvando tarefas");
+            System.exit(-1);
+        }
+
+
+        for (Path tp : tarefas_paths){
+            delete_tarefa(tp);
+        }
+
+        for (Tarefa t : q.lista_de_tarefas){
+            create_tarefa(t, Path.of(String.valueOf(root), t.nome).toString());
+        }
+
+    }
 
 
     public Permanencia() {
         quadros = new ArrayList<>();
         load_quadros();
+        save_quadro(quadros.getFirst());
     }
 }

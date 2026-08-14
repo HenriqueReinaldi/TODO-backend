@@ -17,7 +17,6 @@ public class Tarefa {
         this.status = status;
     }
 
-
     public void show_information(){
         System.out.println("    >" + nome + "\n" +
                             "      :" + desc + "\n" +
@@ -27,4 +26,17 @@ public class Tarefa {
                             "      :" + status + "\n"
         );
     }
+
+
+    public String get_attr(String nome){
+        return switch (nome) {
+            case "desc" -> desc;
+            case "data_termino" -> data_termino;
+            case "prioridade" -> String.valueOf(prioridade);
+            case "categoria" -> categoria;
+            case "status" -> status;
+            default -> "";
+        };
+    }
+
 }

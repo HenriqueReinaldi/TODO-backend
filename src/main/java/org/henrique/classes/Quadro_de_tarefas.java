@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Quadro_de_tarefas {
     public String nome;
-    private ArrayList<Tarefa> lista_de_tarefas;
+    public ArrayList<Tarefa> lista_de_tarefas;
     private String data_criacao;
 
     public void listar_tarefas(){
