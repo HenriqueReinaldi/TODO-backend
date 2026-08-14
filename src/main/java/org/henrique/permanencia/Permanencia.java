@@ -13,7 +13,7 @@ import java.util.*;
 import java.util.stream.Stream;
 
 public class Permanencia {
-    private static final String path = "/home/carlos/Documents/projetos/projetosJAVA/permanencia";
+    private final String path;
     public ArrayList<Quadro_de_tarefas> quadros_carregados;
 
 
@@ -140,8 +140,9 @@ public class Permanencia {
     }
 
 
-    public Permanencia() {
+    public Permanencia(String path) {
         quadros_carregados = new ArrayList<>();
+        this.path = path;
         load_quadros();
     }
 }
