@@ -5,9 +5,15 @@ import org.henrique.classes.Tarefa;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 // QUANDO O SISTEMA FOR INVOCADO, DEVE CARREGAR TODAS AS DIFERENTES LISTAS
 //
@@ -15,7 +21,6 @@ import java.util.Scanner;
 
 public class Permanencia {
     private static final String path = "/home/carlos/Documents/projetos/projetosJAVA/permanencia";
-    private static final String perm_path = "/home/carlos/Documents/projetos/projetosJAVA/permanencia/perm";
 
     private static ArrayList<Quadro_de_tarefas> quadros;
 
@@ -29,7 +34,6 @@ public class Permanencia {
         }
         return sb.toString();
     }
-
 
     private Tarefa fetch_tarefa(String path, String nome) throws FileNotFoundException{
         String desc = get_file_content(Path.of(path, "desc").toString());
@@ -49,44 +53,50 @@ public class Permanencia {
         return new Tarefa(nome, desc, data_termino, prioridade, categoria, status);
     }
 
+    private Quadro_de_tarefas fetch_quadro(Path path) throws IOException{
+        Stream<Path> stream = Files.list(path);
+        List<Path> tarefas_paths = stream.filter(Files::isDirectory).toList();
+        stream.close();
 
-    private Quadro_de_tarefas fetch_quadro(String path, String nome) throws FileNotFoundException{
-        File f = new File(Path.of(path, "_").toString());
-        Quadro_de_tarefas qt = new Quadro_de_tarefas(nome);
+        Quadro_de_tarefas qt = new Quadro_de_tarefas(path.getFileName().toString());
 
-        Scanner f_read = new Scanner(f);
-        while(f_read.hasNextLine()){
-            String tarefa = f_read.nextLine();
-            Tarefa pega = fetch_tarefa(Path.of(path, tarefa).toString(), tarefa);
+        for (Path tp : tarefas_paths){
+            Tarefa pega = fetch_tarefa(tp.toString(), tp.getFileName().toString());
             qt.append_tarefa(pega);
+
         }
 
         return qt;
     }
 
-    public Permanencia() {
-        quadros = new ArrayList<>();
-        File f = new File(perm_path);
+    private void load_quadros(){
+        Path root = Paths.get(path);
 
-        try{
-            Scanner f_read = new Scanner(f);
-            while (f_read.hasNextLine()){
-                String linha = f_read.nextLine();
-                String quadro_path = Path.of(path, linha).toString();
-                Quadro_de_tarefas quadro = fetch_quadro(quadro_path, linha);
+        try (Stream<Path> stream = Files.list(root)){
 
+            List<Path> quadros_paths = stream.filter(Files::isDirectory).toList();
+            for (Path qp : quadros_paths) {
+                Quadro_de_tarefas quadro = fetch_quadro(qp);
                 quadros.add(quadro);
             }
-        } catch (FileNotFoundException ex){
-            ex.printStackTrace();
+
+        } catch (IOException e){
+            e.printStackTrace();
             System.out.println("vbai se foder (erro abrindo arquivo)");
             System.exit(-1);
         }
 
-
         for(Quadro_de_tarefas q : quadros){
-            IO.println(q.nome);
+            System.out.println(q.nome);
             q.listar_tarefas();
         }
+    }
+
+
+
+
+    public Permanencia() {
+        quadros = new ArrayList<>();
+        load_quadros();
     }
 }
