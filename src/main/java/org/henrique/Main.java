@@ -5,7 +5,17 @@ import org.henrique.terminal.Terminal;
 
 public class Main {
     static void main() {
+        String path = "";
+
+        /*
+
         String path = "/home/carlos/Documents/projetos/projetosJAVA/permanencia";
+        salvaria todas os quadros de tarefas dentro da pasta permanencia.
+        
+        
+        /!\ É de importante que o caminho fornecido exista.
+        
+        */
 
         Permanencia perm = new Permanencia(path);
 
