@@ -90,7 +90,7 @@ public class Permanencia {
     private void create_tarefa(Tarefa t, String path){
         File tp = new File(path);
 
-        System.out.println(tp);
+        //System.out.println(tp);
         if (!tp.mkdir()){
             return;
         }
@@ -111,6 +111,8 @@ public class Permanencia {
     }
 
     public void save_quadro(Quadro_de_tarefas q){
+        if (q.lista_de_tarefas.isEmpty()) return;
+
         Path root = Paths.get(path, q.nome);
         File qd = new File(String.valueOf(root));
         qd.mkdir();
@@ -141,6 +143,5 @@ public class Permanencia {
     public Permanencia() {
         quadros_carregados = new ArrayList<>();
         load_quadros();
-        save_quadro(quadros_carregados.getFirst());
     }
 }

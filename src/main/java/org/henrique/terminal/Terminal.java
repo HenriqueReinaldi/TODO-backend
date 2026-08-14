@@ -26,6 +26,16 @@ public class Terminal {
             return;
         }
 
+        if (in.equals("?")){
+            System.out.println("Lista de comandos:");
+            System.out.println("novo <quadro>  |  cria um novo quadro de tarefas.");
+            System.out.println("<quadro>       |  põe em uso o quadro de tarefas.");
+            System.out.println("sair           |  salva e fecha o programa.");
+            System.out.println();
+
+            return;
+        }
+
         if (in.startsWith("novo ") && in.length() > 5){
             String nome = in.substring(5);
 
@@ -70,8 +80,9 @@ public class Terminal {
             return;
         }
 
-        if (in.startsWith("nova ") && in.length() > 5){
+        if (in.startsWith("novo ") && in.length() > 5){
             String nome = in.substring(5);
+            if (nome.contains(" ")) return;
             if (quadro_contem(nome)) return;
 
             Tarefa nova = new Tarefa(in.substring(5), "", "", 0, "", "TODO");
@@ -153,6 +164,32 @@ public class Terminal {
 
         if (in.equals("menu")){
             mode = modo_term.SEM_QUADRO;
+            return;
+        }
+
+        if (in.equals("?")){
+            System.out.println("Lista de comandos:");
+            System.out.println("novo <tarefa> |  cria uma nova tarefa vazia.");
+            System.out.println("del  <tarefa> |  deleta uma tarefa.");
+            System.out.println("menu          |  volta pro menu de quardos.");
+            System.out.println("sair          |  salva e fecha o programa.");
+
+            System.out.println();
+            System.out.println("modo          |  muda modo de vizualização... args: (prioridade, categoria, status).");
+            System.out.println("ver <tarefa>  |  mostra descrição e data de compleção da tarefa.");
+            System.out.println();
+            System.out.println("todo <tarefa>  |  muda uma tarefa para TODO");
+            System.out.println("doing <tarefa> |  muda uma tarefa para DOING");
+            System.out.println("done <tarefa>  |  muda uma tarefa para DONE");
+            System.out.println();
+
+            System.out.println("prioridade <tarefa> <num>  |  muda prioridade da tarefa para num.");
+            System.out.println("descricao <tarefa> <desc>  |  muda descricao da tarefa para desc");
+            System.out.println("categoria <tarefa> <cat>   |  muda categoria da tarefa para cat");
+
+
+            System.out.println();
+            mostar_prox = 0;
             return;
         }
     }
@@ -282,8 +319,7 @@ public class Terminal {
 
         while (true){
             if (mode == modo_term.SEM_QUADRO){
-                System.out.println("Selecione um quadro de tarefas:");
-                System.out.println("    (para criar um novo, digite 'novo nome')");
+                System.out.println("Quadros de tarefas:        ('?' para ajuda)");
 
                 for (Quadro_de_tarefas q : perm.quadros_carregados){
                     System.out.println("    " + q.nome);
