@@ -110,8 +110,10 @@ public class Permanencia {
         }
     }
 
-    private void save_quadro(Quadro_de_tarefas q){
+    public void save_quadro(Quadro_de_tarefas q){
         Path root = Paths.get(path, q.nome);
+        File qd = new File(String.valueOf(root));
+        qd.mkdir();
 
         List<Path> tarefas_paths = List.of();
         try{
