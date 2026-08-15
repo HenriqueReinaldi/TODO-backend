@@ -7,22 +7,21 @@ O programa permite o usuário a criar quadros de tarefas, cada um contendo uma l
 ### Para executar:
 
     0. Necessário Java 8+ e GRADLE
-
     1. Na linha 8 de src/main/java/org/henrique/Main.java temos uma String que detém o caminho usado para salvar as listas. É necessário editá-la para um caminho de seu desejo.
 
-    2. Execute na raiz do projeto o comando:
 
-    ./gradlew run -q --console=plain
 
+    2. Execute na raiz do projeto o seguinte comando:
+
+        ./gradlew run -q --console=plain
 
     ALTERNATIVAMENTE
 
+    2. Abra o projeto no Intellij IDEA.
+    3. Opções para rodar:
+        3.a Vá para src/main/java/org/henrique/Main.java e clique no botão RUN do método main()
 
-    1. Abra o projeto no Intellij IDEA.
-    2. Opções para rodar:
-        2.a Vá para src/main/java/org/henrique/Main.java e clique no botão RUN do método main()
-
-        2.b Use a hotkey de "rodar 'main'" (padrão: "SHIFT+F10")
+        3.b Use a hotkey de "rodar 'main'" (padrão: "SHIFT+F10")
 
 ### Solução
 
