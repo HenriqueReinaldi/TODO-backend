@@ -1,5 +1,6 @@
 package org.henrique.terminal;
 
+import org.henrique.alarme.Alarme;
 import org.henrique.classes.Quadro_de_tarefas;
 import org.henrique.classes.Tarefa;
 import org.henrique.permanencia.Permanencia;
@@ -7,12 +8,20 @@ import org.henrique.permanencia.Permanencia;
 
 import java.lang.reflect.Array;
 import java.sql.Time;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.chrono.ChronoLocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Terminal {
+    private final Alarme alarme;
     private final Permanencia perm;
     private Quadro_de_tarefas quadro_carregado;
 
@@ -57,6 +66,10 @@ public class Terminal {
             if (q.nome.equals(in)){
                 quadro_carregado = q;
                 mode = modo_term.COM_QUADRO;
+
+                for(Tarefa t : q.lista_de_tarefas){
+                    alarme.rodar_alarmes(t);
+                }
                 return;
             }
         }
@@ -85,8 +98,18 @@ public class Terminal {
             if (nome.contains(" ")) return;
             if (quadro_contem(nome)) return;
 
-            Tarefa nova = new Tarefa(in.substring(5), "", "", 1, "", "TODO");
+            Tarefa nova = new Tarefa(in.substring(5), "", "", 1, "", "TODO", new ArrayList<>());
             quadro_carregado.append_tarefa(nova);
+
+            alarme.criar_alarme_pergunta(nova);
+            return;
+        }
+        if (in.startsWith("alarme ") && in.length() > 7){
+            String nome = in.substring(7);
+            Tarefa t = get_ref_quadro(nome);
+            if (t == null) return;
+
+            alarme.criar_alarme(t);
             return;
         }
 
@@ -185,8 +208,10 @@ public class Terminal {
             System.out.println("sair          |  salva e fecha o programa.");
 
             System.out.println();
-            System.out.println("modo          |  muda modo de vizualização... args: (prioridade, categoria, status).");
-            System.out.println("ver <tarefa>  |  mostra descrição e data de compleção da tarefa.");
+            System.out.println("modo            |  muda modo de vizualização... args: (prioridade, categoria, status).");
+            System.out.println("ver <tarefa>    |  mostra descrição e data de compleção da tarefa.");
+            System.out.println("alarme <tarefa> |  abre o menu de criar alarmes para a tarefa.");
+
             System.out.println();
             System.out.println("todo <tarefa>  |  muda uma tarefa para TODO");
             System.out.println("doing <tarefa> |  muda uma tarefa para DOING");
@@ -231,6 +256,10 @@ public class Terminal {
 
         System.out.println("    descrição:" + ref.desc);
         System.out.println("    termino  :" + ref.data_termino);
+        System.out.println("    alarmes  :");
+        for (String s : ref.alarmes){
+            System.out.println("        " + s);
+        }
 
         System.out.println("\n==========================\n");
     }
@@ -358,5 +387,6 @@ public class Terminal {
 
     public Terminal(Permanencia perm){
         this.perm = perm;
+        this.alarme = new Alarme();
     }
 }

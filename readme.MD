@@ -34,6 +34,17 @@ Desse modo, o projeto é separado em 3 partes principais:<br>
     
     Terminal: A interface de linha de comando do programa.
 
+<li> <b>Sistema de alarme:</b>
+<br>
+<br>
+
+Ao criar uma tarefa, o sistema pergunta ao usuário se deseja criar um novo alarme. Caso sim, solicita a data limite e salva um novo alarme para tal data.<br>
+O sistema passa a alarmar o usuário quando para um dado alarme, restam duas horas para chegar na data definida.<br>
+Quando a data definida do alarme se torna passado, o alarme é automaticamente removido.
+<br>
+<br>
+Também é possível criar novos alarmes com o comando "alarme [tarefa]"
+
 ### Informações pertinentes:
 
 Arquivo main do programa: src/main/java/org/henrique/Main.java<br>
