@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -27,6 +28,17 @@ public class Permanencia {
         return sb.toString();
     }
 
+    private List<String> get_file_lines(String path) throws FileNotFoundException {
+        File f = new File(path);
+        Scanner f_read = new Scanner(f);
+        List<String> res = new ArrayList<>();
+        while (f_read.hasNextLine()){
+            res.add(f_read.nextLine());
+        }
+
+        return res;
+    }
+
     private Tarefa fetch_tarefa(String path, String nome) throws FileNotFoundException{
         String desc = get_file_content(Path.of(path, "desc").toString());
         String data_termino = get_file_content(Path.of(path, "data_termino").toString());
@@ -34,14 +46,14 @@ public class Permanencia {
         String status = get_file_content(Path.of(path, "status").toString());
         String prioridade_string = get_file_content(Path.of(path, "prioridade").toString());
         int prioridade = 0;
-
         try{
             prioridade = Integer.parseInt(prioridade_string);
         } catch (NumberFormatException ex){
             //fds
         }
+        List<String> alarmes = get_file_lines(Path.of(path, "alarmes").toString());
 
-        return new Tarefa(nome, desc, data_termino, prioridade, categoria, status);
+        return new Tarefa(nome, desc, data_termino, prioridade, categoria, status, alarmes);
     }
 
     private Quadro_de_tarefas fetch_quadro(Path path) throws IOException{
@@ -108,11 +120,23 @@ public class Permanencia {
                 System.exit(-1);
             }
         }
+        try{
+            Path pt = Path.of(path, "alarmes");
+            Files.createFile(pt);
+
+            for (String s : t.get_list_attr("alarmes")){
+                Files.writeString(pt, s+"\n", StandardOpenOption.APPEND);
+            }
+
+        } catch (Exception e){
+            e.printStackTrace();
+            System.out.println("deu merda criando tarefa");
+            System.exit(-1);
+        }
+
     }
 
     public void save_quadro(Quadro_de_tarefas q){
-        if (q.lista_de_tarefas.isEmpty()) return;
-
         Path root = Paths.get(path, q.nome);
         File qd = new File(String.valueOf(root));
         qd.mkdir();
@@ -128,12 +152,12 @@ public class Permanencia {
             System.exit(-1);
         }
 
-
         for (Path tp : tarefas_paths){
             delete_tarefa(tp);
         }
 
         for (Tarefa t : q.lista_de_tarefas){
+            System.out.println(t);
             create_tarefa(t, Path.of(String.valueOf(root), t.nome).toString());
         }
 
