@@ -1,5 +1,7 @@
 package org.henrique.classes;
 
+import java.util.List;
+
 public class Tarefa {
     public String nome;
     public String desc;
@@ -8,13 +10,16 @@ public class Tarefa {
     public String categoria;
     public String status;
 
-    public Tarefa(String nome, String desc, String data_termino, int prioridade, String categoria, String status) {
+    public List<String> alarmes;
+
+    public Tarefa(String nome, String desc, String data_termino, int prioridade, String categoria, String status, List<String> alarmes) {
         this.nome = nome;
         this.desc = desc;
         this.data_termino = data_termino;
         this.prioridade = prioridade;
         this.categoria = categoria;
         this.status = status;
+        this.alarmes = alarmes;
     }
 
     public void show_information(){
@@ -27,7 +32,6 @@ public class Tarefa {
         );
     }
 
-
     public String get_attr(String nome){
         return switch (nome) {
             case "desc" -> desc;
@@ -39,4 +43,10 @@ public class Tarefa {
         };
     }
 
+    public List<String> get_list_attr(String nome){
+       return switch (nome){
+           case "alarmes" -> alarmes;
+           default -> null;
+       };
+    }
 }
