@@ -13,7 +13,7 @@ function init(){
 init();
 
 function limpar_area_tarefas(){
-    let remocao = document.getElementsByClassName("temp-tarefa");
+    let remocao = document.querySelectorAll(".temp-tarefa");
     for (let el of remocao) el.remove();
 }
 

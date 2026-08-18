@@ -25,19 +25,42 @@
 
             <div class="container-tarefas temp-tarefa">
                 <div class="container-titulo">TODO:</div>
+
+                <button>tarefa2</button>
+                <button>tarefa3</button>
+                <button>tarefa3</button>
+            </div>
+            
+            
+            <div class="container-tarefas permanente">
+                <div class="container-titulo">tarefa2:</div>
                 
-                <p>tarefa2</p>
-                <p>tarefa3</p>
-            </div>
+                <label for="select-status"></label>
+                <select name="select" id="select-status">
+                    <option value="TODO">TODO</option>
+                    <option value="DOING">DOING</option>
+                    <option value="DONE">DONE</option>
+                </select>
 
-            <div class="container-tarefas permanente">
-                <div class="container-titulo">CONFIGURACOES:</div>
-            </div>
+                <label for="input-categoria"></label>
+                <input type="text" name="" id="input-categoria" placeholder="categoria">
 
-            <div class="container-tarefas permanente">
-                <div class="container-titulo">VISUALIZAÇÃO:</div>
+                <label for="input-prioridade"></label>
+                <input type="text" name="" id="input-prioridade" placeholder="prioridade">
+
+                <label for="input-descricao"></label>
+                <input type="text" name="" id="input-descricao" placeholder="descricao">
+
+                <label for="input-alarme"></label>
+                <p>novo alarme:</p>
+                <input type="datetime-local" name="" id="input-alarme">
+
+
+                <button>Salvar</button>
             </div>
         </div>
+
+        <p>Configurações:</p>
 
 
         <script src="main.js"></script>
