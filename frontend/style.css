@@ -1,0 +1,44 @@
+* {
+    font-size: 120%;
+}
+
+p {
+    margin: 0.3em;
+}
+
+.area-quadros {
+    display: flex;
+    border-radius: 0.2em;
+
+    margin: 0.2em;
+    padding: 0.2em;
+    background-color: #dddddd;
+
+    height: 5.5em;
+}
+
+.area-tarefas {
+    display: flex;
+    border-radius: 0.2em;
+
+    margin: 0.2em;
+    padding: 0.2em;
+    background-color: #dddddd;
+
+    height: 20em;
+}
+
+.container-tarefas {
+    margin: 1em;
+    background-color: #cccccc;
+}
+
+.container-titulo{
+    background-color: #c0c0c0;
+    border-radius: 0.2em;
+    padding: 0.5em;
+}
+
+.permanente{
+    background-color: #b5b5b5;
+}
