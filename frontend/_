@@ -13,7 +13,7 @@ analise:
 
         Dentro do quadro:
 
-            !!!MOSTRAR ALARME SE TIVER
+            !!!MOSTRAR ALARME SE TIVER //impossivel sem permanencia
 
             criar tarefa
             deletar tarefa

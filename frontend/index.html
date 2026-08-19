@@ -23,21 +23,16 @@
         <p>Tarefas:</p>
         <div class="area-tarefas" id="area-tarefas">
 
-            <div class="container-tarefas temp-tarefa">
-                <div class="container-titulo">TODO:</div>
 
-                <button>tarefa2</button>
-                <button>tarefa3</button>
-                <button>tarefa3</button>
-            </div>
-            
-            
             <div class="container-tarefas permanente">
-                <div class="container-titulo">tarefa2:</div>
-                
+                <div class="container-titulo">Editar tarefa:</div>
+
+                <label for="input-nome-tarefa"></label>
+                <input type="text" name="" id="input-nome-tarefa" placeholder="nome (para criar nova tarefa)">
+
                 <label for="select-status"></label>
                 <select name="select" id="select-status">
-                    <option value="TODO">TODO</option>
+                    <option value="TODO" selected>TODO</option>
                     <option value="DOING">DOING</option>
                     <option value="DONE">DONE</option>
                 </select>
@@ -46,23 +41,50 @@
                 <input type="text" name="" id="input-categoria" placeholder="categoria">
 
                 <label for="input-prioridade"></label>
-                <input type="text" name="" id="input-prioridade" placeholder="prioridade">
+                <p>prioridade:</p>
+                <input type="number" name="" id="input-prioridade" value="1" min="1" max="5">
 
                 <label for="input-descricao"></label>
                 <input type="text" name="" id="input-descricao" placeholder="descricao">
 
                 <label for="input-alarme"></label>
-                <p>novo alarme:</p>
+                <label for="check-sim-alarme">
+                    <p>novo alarme?</p>
+                    <input type="checkbox" name="" id="check-sim-alarme" class="checkgranmde">
+                </label>
                 <input type="datetime-local" name="" id="input-alarme">
 
-
-                <button>Salvar</button>
+                <button id="btn-salvar-adicionar">Salvar</button>
             </div>
         </div>
 
         <p>Configurações:</p>
+        <div>
+            <p>Modo de display:</p>
+            <label for="select-display"></label>
+            <select name="" id="select-display">
+                <option value="L_STATUS"> Status </option>
+                <option value="L_PRIORIDADE"> Prioridade </option>
+                <option value="L_CATEGORIA"> Categoria </option>
+                <option value="L_FDS"> Sem modo </option>
+            </select>
+        </div>
 
 
+
+
+        <template id="template-container">
+
+            <div class="container-tarefas temp-tarefa">
+                <div class="container-titulo"></div>
+
+
+            </div>
+
+        </template>
         <script src="main.js"></script>
+
     </body>
+
+
 </html>
