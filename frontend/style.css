@@ -1,0 +1,60 @@
+* {
+    font-size: 120%;
+}
+
+p, button, select, input {
+    margin: 0.3em;
+}
+label{
+    display: flex;
+}
+
+
+.checkgranmde{
+    scale: 3;
+    margin: 0.2em;
+}
+.area-quadros {
+    display: flex;
+    border-radius: 0.2em;
+
+    margin: 0.2em;
+    padding: 0.2em;
+    background-color: #dddddd;
+
+    height: 5.5em;
+}
+
+.area-tarefas {
+    display: flex;
+    border-radius: 0.2em;
+    width: 90%;
+    min-width: max-content;
+
+    margin: 0.2em;
+    padding: 0.2em;
+    background-color: #dddddd;
+
+    height: 35em;
+}
+
+.container-tarefas {
+    margin: 1em;
+    background-color: #cccccc;
+
+    display: flex;
+    flex-direction: column;
+
+    min-width: 10em;
+    min-height: 22em;
+}
+
+.container-titulo{
+    background-color: #c0c0c0;
+    border-radius: 0.2em;
+    padding: 0.5em;
+}
+
+.permanente{
+    background-color: #b5b5b5;
+}

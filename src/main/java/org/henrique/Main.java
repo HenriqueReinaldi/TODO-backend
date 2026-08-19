@@ -5,7 +5,7 @@ import org.henrique.terminal.Terminal;
 
 public class Main {
     static void main() {
-        String path = "";
+        String path = "/home/carlos/Documents/projetos/projetosJAVA/permanencia";
 
         /*
 
