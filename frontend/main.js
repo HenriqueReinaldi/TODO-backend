@@ -4,6 +4,7 @@
         //tarefas
         const area_tarefas = document.getElementById("area-tarefas");
         const btn_salvar_adicionar = document.getElementById("btn-salvar-adicionar");
+        const btn_deletar = document.getElementById("btn-deletar");
 
         const input_nome_tarefa = document.getElementById("input-nome-tarefa");
         const select_status = document.getElementById("select-status");
@@ -184,7 +185,7 @@ input_nome_novo_quadro.onkeydown = (e) => {
     input_nome_novo_quadro.value = "";
 };
 
-btn_salvar_adicionar.addEventListener("click", e => {
+btn_salvar_adicionar.addEventListener("click", _ => {
     if (quadro_selecionado == null) return;
 
     let status = select_status.value;
@@ -219,6 +220,18 @@ btn_salvar_adicionar.addEventListener("click", e => {
     if (novo_alarme_check) tarefa_selecionada.alarmes.push(alarme);
     mostrar_tarefas();
 });
+
+btn_deletar.addEventListener("click", _ => {
+    if (quadro_selecionado == null) return;
+    if (tarefa_selecionada == null) return;
+
+    let pos = quadro_selecionado.lista_de_tarefas.indexOf(tarefa_selecionada);
+    if (pos >= 0){
+        quadro_selecionado.lista_de_tarefas.splice(pos, 1);
+    }
+    mostrar_tarefas();
+
+})
 
 config_select_display.onchange = ev => {
     modo_listagem = ev.target.value;
