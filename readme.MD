@@ -48,4 +48,5 @@ Também é possível criar novos alarmes com o comando "alarme [tarefa]"
 ### Informações pertinentes:
 
 Arquivo main do programa: src/main/java/org/henrique/Main.java<br>
-[Tecnologias](https://www.youtube.com/watch?v=NjXweFUgY78): Java, Graddle, IntelliJ IDEA
+[Tecnologias](https://www.youtube.com/watch?v=NjXweFUgY78): Java, Graddle, IntelliJ IDEA <br>
+Tecnologias Frontend: JavaScript, HTML, CSS

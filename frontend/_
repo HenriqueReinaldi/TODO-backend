@@ -1,0 +1,46 @@
+OBRIGACOES:
+    campo de criacao de novas tarefas
+    campo de listagem de tarefas
+    permitir edicao e remocao da tarefa
+
+
+analise:
+    LISTA DE INTERACOES:
+
+        Menu quadros:
+            criar quadro
+            usar quadro
+
+        Dentro do quadro:
+
+            !!!MOSTRAR ALARME SE TIVER //impossivel sem permanencia
+
+            criar tarefa
+            deletar tarefa
+            sair do quadro
+
+            alterar modo de visualizacao
+            ver detalhes da tarefa
+            adicionar alarme à tarefa
+
+            marcar tarefa como todo
+            marcar tarefa como doing
+            marcar tarefa como done
+
+            mudar a prioridade da tarefa (1..5)
+            mudar a descricao da tarefa
+            mudar a categoria da tarefa
+
+    IMPLICACOES PARA O FRONTEND:
+
+        alguma interface front-backend para CRUD.
+            ... carregar do backend a lista toda
+                    ...se receber alarme, mostrar
+            ... editar a lsita
+            ... enviar de volta quando fechar quadro?
+
+
+
+    IMPLICACOES PARA O BACKEND:
+
+        por enquanto, fds
